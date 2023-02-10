@@ -21,32 +21,30 @@ async function searchPokemon() {
   const response = await getPokemonByName(searchStore.searchTerm);
 
   if (response) {
-    const pokemon = await getPokemonByName(searchStore.searchTerm);
-
     //pegar as evoluções
-    const evolutions = await getEvolution(pokemon.species.url);
+    const evolutions = await getEvolution(response.species.url);
 
-    const ArrayPokemons = [];
+    const arrayPokemons = [];
 
     //pegar a primeira evolução
     const primaryEvoName = evolutions.chain.species.name;
-    ArrayPokemons.push({name : primaryEvoName});
+    arrayPokemons.push({name : primaryEvoName});
 
     //pegar outras evoluções
     const secondaryEvoName = evolutions.chain.evolves_to[0]?.species.name;
 
     if (secondaryEvoName) {
-      ArrayPokemons.push({name : secondaryEvoName});
+      arrayPokemons.push({name : secondaryEvoName});
 
       const thirdEvoName = evolutions.chain.evolves_to[0]?.evolves_to[0]?.species.name;
 
       if (thirdEvoName) {
-        ArrayPokemons.push({name : thirdEvoName});
+        arrayPokemons.push({name : thirdEvoName});
       }
     }
-    console.log(ArrayPokemons, 'array de pokemons')
+    console.log(arrayPokemons, 'array de pokemons')
 
-    searchStore.setPokemons(ArrayPokemons);
+    searchStore.setPokemons(arrayPokemons);
     searchStore.setExist(true);
   } else {
     searchStore.setExist(false);
