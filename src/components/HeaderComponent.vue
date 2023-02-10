@@ -3,7 +3,7 @@ import PokeBall from '@/components/icons/Pokeball-icon.vue'
 import SearchInput from '@/components/SearchInput.vue'
 import chevronRightIcon from '@/components/icons/chevron-right-icon.vue';
 import chevronLeftIcon from '@/components/icons/chevron-left-icon.vue';
-import { getPokemonByName, getPokemons } from '@/utils/api';
+import { getPokemonByName, getPokemons, getEvolution } from '@/utils/api';
 import { useSearchStore } from '@/stores/searchStore';
 import { watchEffect } from 'vue';
 
@@ -21,10 +21,30 @@ async function searchPokemon() {
   const response = await getPokemonByName(searchStore.searchTerm);
 
   if (response) {
-    const pokemon = [{
-      name: (await getPokemonByName(searchStore.searchTerm)).name
-    }];
-    searchStore.setPokemons(pokemon);
+    //pegar as evoluções
+    const evolutions = await getEvolution(response.species.url);
+
+    const arrayPokemons = [];
+
+    //pegar a primeira evolução
+    const primaryEvoName = evolutions.chain.species.name;
+    arrayPokemons.push({name : primaryEvoName});
+
+    //pegar outras evoluções
+    const secondaryEvoName = evolutions.chain.evolves_to[0]?.species.name;
+
+    if (secondaryEvoName) {
+      arrayPokemons.push({name : secondaryEvoName});
+
+      const thirdEvoName = evolutions.chain.evolves_to[0]?.evolves_to[0]?.species.name;
+
+      if (thirdEvoName) {
+        arrayPokemons.push({name : thirdEvoName});
+      }
+    }
+    console.log(arrayPokemons, 'array de pokemons')
+
+    searchStore.setPokemons(arrayPokemons);
     searchStore.setExist(true);
   } else {
     searchStore.setExist(false);

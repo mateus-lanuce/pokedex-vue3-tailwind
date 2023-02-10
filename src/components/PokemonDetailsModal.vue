@@ -1,11 +1,11 @@
 <script setup>
+import { onBeforeMount, ref, watchEffect } from 'vue';
 
 import PokemonTypeBadge from './PokemonTypeBadge.vue';
 import ChevronLeftIcon from '@/components/icons/chevron-left-icon.vue';
 import evolutionLine from '@/components/modalComponents/evolutionLine.vue';
 import { usePokemonModalStore } from '@/stores/pokemonModal';
 import { getEvolution, getPokemonByName } from '@/utils/api'
-import { onBeforeMount, ref } from 'vue';
 
 defineProps({
   closeModal: {
@@ -15,24 +15,70 @@ defineProps({
 })
 
 const pokemonModalStore = usePokemonModalStore();
+const changeDetails = ref("stats");
+const evolutionsRef = ref([]);
+const evolutionsLevels = ref([]);
 
-console.log(pokemonModalStore.pokemon)
+const handleChangeDetails = (type) => {
 
-const primaryEvoLevel = ref(0);
-const primaryEvo = ref({});
-const secondaryEvoLevel = ref(0);
-const secondaryEvo = ref({});
+  if (type === "stats") {
+    changeDetails.value = "stats";
+  } else if (type === "evolutions") {
+    changeDetails.value = "evolutions";
+  }
 
+}
 
 onBeforeMount(async () => {
-  const evolutions = await getEvolution(pokemonModalStore.pokemon.species.url);
-  primaryEvoLevel.value = evolutions.chain.evolves_to[0].evolution_details[0].min_level;
-  primaryEvo.value = await getPokemonByName(evolutions.chain.evolves_to[0].species.name);
-  secondaryEvoLevel.value = evolutions.chain.evolves_to[0].evolves_to[0].evolution_details[0].min_level;
-  secondaryEvo.value = await getPokemonByName(evolutions.chain.evolves_to[0].evolves_to[0].species.name);
 
-  console.log(evolutions, secondaryEvo)
-});
+  //pegar as evoluções
+  const evolutions = await getEvolution(pokemonModalStore.pokemon.species.url);
+
+  const arrayPokemons = [];
+
+  //pegar a primeira evolução
+  const primaryEvoName = evolutions.chain.species.name;
+  arrayPokemons.push({name : primaryEvoName});
+  evolutionsLevels.value.push(evolutions.chain.evolves_to[0]?.evolution_details[0].min_level);
+
+  //pegar outras evoluções
+  const secondaryEvoName = evolutions.chain.evolves_to[0]?.species.name;
+
+  if (secondaryEvoName) {
+    arrayPokemons.push({name : secondaryEvoName});
+    evolutionsLevels.value.push(evolutions.chain.evolves_to[0]?.evolves_to[0]?.evolution_details[0].min_level);
+
+    const thirdEvoName = evolutions.chain.evolves_to[0]?.evolves_to[0]?.species.name;
+
+    if (thirdEvoName) {
+      arrayPokemons.push({name : thirdEvoName});
+    }
+  }
+
+
+  const evolutionsData = await Promise.all(arrayPokemons.map(async (pokemon) => {
+    const pokemonData = await getPokemonByName(pokemon.name);
+    return pokemonData;
+  }));
+
+  const formattedEvolutions = []; //array de com o pokemon antecessor e o pokemon sucessor
+
+  evolutionsData.forEach((pokemon, index) => {
+
+    if (evolutionsData[index + 1]) {
+      formattedEvolutions.push({pokemon, nextPokemon: evolutionsData[index + 1]});
+    } else {
+      formattedEvolutions.push({pokemon, nextPokemon: null});
+    }
+  })
+
+  //retirar o ultimo pokemon do array, pois ele não tem evolução
+  formattedEvolutions.pop();
+
+  console.log(evolutionsLevels.value)
+
+  evolutionsRef.value = formattedEvolutions;
+})
 
 const bgTypeColor = {
   bug: 'bg-pokemonType-bug',
@@ -89,17 +135,45 @@ const bgTypeColor = {
     
       <div class="container flex flex-col gap-2 bg-grayscale-background rounded-t-2xl overflow-scroll flex-grow p-4">
         
-        <!-- evolucoes -->
-        <h3 class="text-xl font-bold">Evoluções</h3>
+        <!-- escolhas -->
+        <div class="flex justify-around">
+          <button :class="changeDetails == 'stats' ? 'border-b-2 border-grayscale-light' : ''" @click="handleChangeDetails('stats')" >
+            <h3 class="text-xl font-bold">características</h3>
+          </button>
+          <button
+            :class="
+              changeDetails == 'evolutions'
+                ? 'border-b-2 border-grayscale-light'
+                : ''
+            "
+            @click="handleChangeDetails('evolutions')"
+          >
+            <h3 class="text-xl font-bold">evoluções</h3>
+          </button>
+        </div>
 
-        <div class="flex flex-col flex-grow justify-around">
 
-          <!-- linhas de evolucao -->
-          
-          <evolution-line :antecessor="pokemonModalStore.pokemon" :level="primaryEvoLevel" :sucessor="primaryEvo" />
+        <div v-if="changeDetails == 'stats'" class="flex flex-col flex-grow justify-evenly">
 
-          <evolution-line :antecessor="primaryEvo" :level="secondaryEvoLevel" :sucessor="secondaryEvo" />
-          
+          <div 
+            v-for="stats in pokemonModalStore.pokemon.stats" 
+            :key="stats.stat.name"  
+          >
+            <span class="font-bold">{{ stats.stat.name }}</span>: {{ stats.base_stat }}
+          </div>
+
+        </div>
+
+        <div v-if="changeDetails == 'evolutions'" class="flex flex-col flex-grow justify-evenly">
+
+          <evolution-line
+            v-for="(evolution, index) in evolutionsRef"
+            :key="evolution.pokemon.name"
+            :current="evolution.pokemon" 
+            :level="evolutionsLevels[index]"
+            :sucessor="evolution.nextPokemon" 
+          />
+
         </div>
 
       </div>

@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import headerComponent from './components/header-component.vue';
+import headerComponent from './components/HeaderComponent.vue';
 
 </script>
 
@@ -10,6 +10,11 @@ import headerComponent from './components/header-component.vue';
   
     <Suspense>
       <RouterView class="flex-1 mx-auto" />
+
+      <!-- loading state via #fallback slot -->
+      <template #fallback>
+        Loading...
+      </template>
     </Suspense>
   </div>
 </template>

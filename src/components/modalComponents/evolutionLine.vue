@@ -2,7 +2,7 @@
 import PokemonTypeBadge from '@/components/PokemonTypeBadge.vue';
 
 defineProps({
-  antecessor: {
+  current: {
     type: Object,
     required: true
   },
@@ -23,12 +23,12 @@ defineProps({
 <div class="flex flex-row gap-1 items-center justify-around">
 
   <div class="flex flex-col items-center gap-2">
-    <img class="w-20 h-20 bg-grayscale-light rounded-full p-2" :src="antecessor?.sprites?.other.dream_world.front_default" alt="">
-    <h4 class="text-base font-bold">{{ antecessor.name }}</h4>
+    <img class="w-20 h-20 bg-grayscale-light rounded-full p-2" :src="current?.sprites?.other.dream_world.front_default" alt="">
+    <h4 class="text-base font-bold">{{ current.name }}</h4>
       <div class="flex gap-2">
         <pokemon-type-badge 
-          v-for="typePokemon in antecessor.types"
-          :key="typePokemon.type.name + antecessor.name"
+          v-for="typePokemon in current.types"
+          :key="typePokemon.type.name + current.name"
           :type="typePokemon.type.name" 
         />
       </div>

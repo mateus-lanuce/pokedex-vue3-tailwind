@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onBeforeMount, watchEffect } from 'vue';
+import { ref, onBeforeMount } from 'vue';
 import PokemonCard from '@/components/PokemonCard.vue'
 import PokemonDetailsModal from '@/components/PokemonDetailsModal.vue'
 import { useSearchStore } from '@/stores/searchStore';
@@ -31,7 +31,7 @@ onBeforeMount(async () => {
     <section 
       v-if="!openModal"
       aria-label="pokemon cards" 
-      class="container max-h-[calc(100vh-104px)] overflow-scroll p-3 z-0 h-full bg-grayscale-background rounded-lg shadow-inner"
+      class="container max-h-[calc(100vh-104px)] overflow-scroll scroll-smooth custom_scroll p-3 z-0 h-full bg-grayscale-background rounded-lg shadow-inner"
     > 
       <div v-if="searchStore.exist" class="grid grid-cols-1 sm:grid-cols-3 gap-2">
         <PokemonCard
@@ -47,9 +47,17 @@ onBeforeMount(async () => {
       </div>
     </section>
 
-    <section aria-label="pokemon details" :class="openModal ? 'top-0' : 'top-full opacity-0'" class="bg-grayscale-dark transition-[top] ease-in-out delay-300 duration-500 fixed top-0 left-0 w-screen h-screen z-50">
+    <section aria-label="pokemon details" :class="openModal ? 'top-0' : 'top-full opacity-0 will-change-auto'" class="bg-grayscale-dark  will-change-scroll transition-[top] ease-in-out delay-300 duration-500 fixed top-0 left-0 w-screen h-screen z-50">
       <PokemonDetailsModal :close-modal="closeModalHandler" v-if="openModal" />
     </section>
 
   </main>
 </template>
+
+<style scoped>
+
+  .custom_scroll::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+  }
+
+</style>
