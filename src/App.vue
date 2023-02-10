@@ -5,11 +5,11 @@ import headerComponent from './components/header-component.vue';
 </script>
 
 <template>
-  <div class="h-screen flex flex-col">
-    <headerComponent />
+  <div class="h-screen flex flex-col bg-primary">
+    <headerComponent class="mx-auto" />
   
     <Suspense>
-      <RouterView class="flex-1" />
+      <RouterView class="flex-1 mx-auto" />
     </Suspense>
   </div>
 </template>

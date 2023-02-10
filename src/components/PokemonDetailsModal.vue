@@ -90,7 +90,7 @@ const bgTypeColor = {
       <div class="container flex flex-col gap-2 bg-grayscale-background rounded-t-2xl overflow-scroll flex-grow p-4">
         
         <!-- evolucoes -->
-        <h3 class="text-xl font-bold">Evolution Chain</h3>
+        <h3 class="text-xl font-bold">Evoluções</h3>
 
         <div class="flex flex-col flex-grow justify-around">
 
