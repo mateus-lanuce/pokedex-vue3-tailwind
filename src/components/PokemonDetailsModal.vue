@@ -58,7 +58,7 @@ const bgTypeColor = {
 </script>
 
 <template>
-  <div :class="bgTypeColor[pokemonModalStore.pokemonTypes[0]]" class="container flex flex-col gap-4 h-full">
+  <div :class="bgTypeColor[pokemonModalStore.pokemonTypes[0]]" class="container flex flex-col gap-4 h-full mx-auto">
 
     <div class="flex flex-row justify-between pt-6 p-4">
       <button @click="closeModal">

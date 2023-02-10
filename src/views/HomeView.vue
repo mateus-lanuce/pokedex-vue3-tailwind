@@ -17,8 +17,6 @@ const closeModalHandler = () => {
 
 const searchStore = useSearchStore();
 
-console.log(searchStore.searchTerm)
-
 onBeforeMount(async () => {
   searchStore.setPokemons(await getPokemons( 20, searchStore.offset ));
   searchStore.setExist(true);
@@ -49,7 +47,7 @@ onBeforeMount(async () => {
       </div>
     </section>
 
-    <section aria-label="pokemon details" :class="openModal ? 'top-0' : 'top-full'" class="transition-all ease-out delay-300 duration-500 fixed top-0 left-0 w-screen h-screen z-50">
+    <section aria-label="pokemon details" :class="openModal ? 'top-0' : 'top-full opacity-0'" class="bg-grayscale-dark transition-[top] ease-in-out delay-300 duration-500 fixed top-0 left-0 w-screen h-screen z-50">
       <PokemonDetailsModal :close-modal="closeModalHandler" v-if="openModal" />
     </section>
 
