@@ -1,7 +1,8 @@
 <script setup>
 
 import SearchIcon from '@/components/icons/search-icon.vue'
-
+import { useSearchStore } from '@/stores/searchStore';
+const searchStore = useSearchStore();
 </script>
 
 <template>
@@ -13,9 +14,10 @@ import SearchIcon from '@/components/icons/search-icon.vue'
         <input
           type="text"
           name=""
-          placeholder="Pesquisar"
+          placeholder="Pesquise o nome do pokemon"
           id="search"
           class="w-full"
+          v-model="searchStore.searchTerm"
         />
       </div>
     </label>

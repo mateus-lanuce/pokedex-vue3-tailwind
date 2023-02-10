@@ -64,8 +64,8 @@ const bgTypeColor = {
       <button @click="closeModal">
         <ChevronLeftIcon class="w-5 h-5 fill-white" />
       </button>
-      <button class="h-5 w-5">
-        <img src="@/assets/favorite-icon.png" alt="">
+      <button class="h-5 w-5 invert">
+        <img src="@/assets/favorite-icon.png" alt="like image">
       </button>
     </div>
 
