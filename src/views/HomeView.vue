@@ -45,7 +45,7 @@ onBeforeMount(async () => {
         />
       </div>
       <div v-else>
-        pao
+        <p class="text-center text-2xl text-grayscale-text">Nenhum pokemon encontrado</p>
       </div>
     </section>
 
