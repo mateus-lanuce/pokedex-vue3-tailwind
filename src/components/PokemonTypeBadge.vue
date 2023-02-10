@@ -7,7 +7,7 @@ defineProps({
   }
 })
 
-const typeColors = {
+const bgTypeColor = {
   bug: 'bg-pokemonType-bug',
   dark: 'bg-pokemonType-dark',
   dragon: 'bg-pokemonType-dragon',
@@ -33,7 +33,7 @@ const typeColors = {
 <template>
 
   <span>
-    <span :class="typeColors[type] + ' text-white bg-po font-bold text-sm rounded-full px-4 py-1 shadow-lg'">
+    <span :class="bgTypeColor[type] + ' text-white bg-po font-bold text-sm rounded-full px-4 py-1 shadow-lg'">
       {{ type }}
     </span>
   </span>

@@ -7,12 +7,13 @@ export const getPokemonByName = async (name) => {
   return pokemon;
 }
 
-export const getPokemons = async (limit = 20, offset = 0) => {
+export const getPokemons = async (limit = 10, offset = 0) => {
   const pokemons = await P.getPokemonsList({ limit, offset });
   return pokemons;
 }
 
-export const getPokemonImageSvg = async (id) => {
-  const pokemonImage = await P.resource(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`);
-  return pokemonImage;
+export const getEvolution = async (urlSpecie) => {
+  const specie = await P.resource(urlSpecie);
+  const evolutionChain = await P.resource(specie.evolution_chain.url)
+  return evolutionChain;
 }

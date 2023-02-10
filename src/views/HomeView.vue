@@ -34,11 +34,11 @@ console.log(pokemons.value)
           v-for="pokemon in pokemons"
           :key="pokemon.name"
           :pokemon="pokemon"
-          @click="openModalHandler"
+          :openModal="openModalHandler"
         />
     </section>
 
-    <section aria-label="pokemon details" :class="openModal ? 'top-0' : 'top-full'" class="transition-all ease-out delay-300 duration-500 fixed top-0 left-0 w-screen h-screen z-50 overflow-hidden">
+    <section aria-label="pokemon details" :class="openModal ? 'top-0' : 'top-full'" class="transition-all ease-out delay-300 duration-500 fixed top-0 left-0 w-screen h-screen z-50">
       <PokemonDetailsModal :close-modal="closeModalHandler" v-if="openModal" />
     </section>
 
