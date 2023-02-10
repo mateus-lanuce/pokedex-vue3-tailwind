@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onBeforeMount, watchEffect } from 'vue';
+import { ref, onBeforeMount } from 'vue';
 import PokemonCard from '@/components/PokemonCard.vue'
 import PokemonDetailsModal from '@/components/PokemonDetailsModal.vue'
 import { useSearchStore } from '@/stores/searchStore';
@@ -31,7 +31,7 @@ onBeforeMount(async () => {
     <section 
       v-if="!openModal"
       aria-label="pokemon cards" 
-      class="container max-h-[calc(100vh-104px)] overflow-scroll custom_scroll p-3 z-0 h-full bg-grayscale-background rounded-lg shadow-inner"
+      class="container max-h-[calc(100vh-104px)] overflow-scroll scroll-smooth custom_scroll p-3 z-0 h-full bg-grayscale-background rounded-lg shadow-inner"
     > 
       <div v-if="searchStore.exist" class="grid grid-cols-1 sm:grid-cols-3 gap-2">
         <PokemonCard
