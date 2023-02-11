@@ -30,7 +30,7 @@ module.exports = {
         },
         grayscale: {
           dark: "#212121",
-          light: "#E0E0E0",
+          light: "",
           medium: "#666666",
           background: "#EFEFEf",
         },

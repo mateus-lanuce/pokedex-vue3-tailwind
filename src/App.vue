@@ -1,5 +1,5 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import headerComponent from './components/HeaderComponent.vue';
 
 </script>
@@ -54,6 +54,10 @@ import headerComponent from './components/HeaderComponent.vue';
         Loading...
       </template>
     </Suspense>
+
+    <footer class="flex justify-center items-center bg-primary">
+      <p class="text-white">Made with ❤️ by <a href="https://www.linkedin.com/in/mateus-lanuce/" target="_blank" class="text-white underline">Mateus Lanuce</a></p>
+    </footer>
   </div>
 </template>
 
