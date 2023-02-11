@@ -1,7 +1,7 @@
 # pokedex-vue3-tailwind
 
 - Esse Projeto foi Feito por mim [Mateus Lanuce](https://github.com/mateus-lanuce) utilizando vue3 e tailwind, usando os dados dos pokemons fornecidos pela PokeAPI V2.
-- Levou aproximadamente 1 dia e meio para ser finalizado, incluindo toda a responsivida, acessibilidade e SEO.
+- Levou aproximadamente 1 dia e meio para ser finalizado, incluindo toda a responsividade, acessibilidade e SEO.
 - O design foi baseado (com algumas mudanças pessoais minhas) no figma feito pelo [Ricardo Schiniegoski](https://www.figma.com/@ricardohs) - [Figma design](https://www.figma.com/community/file/979132880663340794]
 
 ## link para a versão em deploy na vercel
