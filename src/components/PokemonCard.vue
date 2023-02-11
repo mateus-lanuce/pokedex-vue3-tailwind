@@ -62,7 +62,7 @@ const openDetails = () => {
 </script>
 
 <template>
-  <article
+  <button
     :class="bgTypeColor[types[0]]"
     class="custom_bg-opacity backdrop-opacity-50 p-2 z-30 max-h-[150px] flex-grow rounded-xl shadow-lg shadow-black cursor-pointer"
     title="pokemon card"
@@ -91,7 +91,7 @@ const openDetails = () => {
         </div>
       </div>
 
-  </article>
+  </button>
 
 </template>
 

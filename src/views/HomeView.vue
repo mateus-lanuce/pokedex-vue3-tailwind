@@ -40,6 +40,8 @@ onBeforeMount(async () => {
           :pokemon="pokemon"
           :openModal="openModalHandler"
           class="mt-2"
+          tabindex="0"
+          :aria-label="pokemon.name + ' pokemon card'"
         />
       </div>
       <div v-else>
