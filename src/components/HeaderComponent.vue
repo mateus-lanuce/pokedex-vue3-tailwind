@@ -72,17 +72,23 @@ watchEffect(() => {
       </button>
   
       <div class="flex gap-3">
-        <button 
+        <button
           class="w-10 h-10 flex justify-center items-center bg-white rounded-full shadow-inner shadow-grayscale-medium"
           @click="searchStore.decrementOffset()"
+          aria-label="Pagina Anterior"
+          title="Pagina Anterior"
         >
+          <p class="hidden">Pagina Anterior</p>
           <chevronLeftIcon class="w-5 h-5 fill-primary" />
         </button>
         <SearchInput class="flex-1"/>
         <button 
           class="w-10 h-10 flex justify-center items-center bg-white rounded-full shadow-inner shadow-grayscale-medium"
           @click="searchStore.incrementOffset()"
+          aria-label="Proxima Pagina"
+          title="Proxima Pagina"
         >
+          <p class="hidden">Proxima Pagina</p>
           <chevronRightIcon class="w-5 h-5 fill-primary" />
         </button>
       </div>
