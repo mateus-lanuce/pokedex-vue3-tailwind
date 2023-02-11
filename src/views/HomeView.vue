@@ -26,12 +26,12 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <main class="container p-2 bg-primary">
+  <main class="container p-2 bg-primary overflow-auto">
 
     <section 
       v-if="!openModal"
       aria-label="pokemon cards" 
-      class="container max-h-[calc(100vh-104px)] overflow-scroll scroll-smooth custom_scroll p-3 z-0 h-full bg-grayscale-background rounded-lg shadow-inner"
+      class="container max-h-[calc(100vh-104px)] overflow-scroll overflow-x-auto scroll-smooth custom_scroll p-3 z-0 h-full bg-grayscale-background rounded-lg shadow-inner"
     > 
       <div v-if="searchStore.exist" class="grid grid-cols-1 sm:grid-cols-3 gap-2">
         <PokemonCard
@@ -60,6 +60,14 @@ onBeforeMount(async () => {
 
   .custom_scroll::-webkit-scrollbar-thumb {
     border-radius: 1rem;
+  }
+
+  .custom_scroll::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  .custom_scroll::-webkit-scrollbar-thumb {
+    background: #E0E0E0;
   }
 
 </style>
