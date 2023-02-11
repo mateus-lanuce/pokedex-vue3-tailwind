@@ -1,6 +1,11 @@
 # pokedex-vue3-tailwind
 
-This template should help get you started developing with Vue 3 in Vite.
+- Esse Projeto foi Feito por mim [Mateus Lanuce](https://github.com/mateus-lanuce) utilizando vue3 e tailwind, usando os dados dos pokemons fornecidos pela PokeAPI V2.
+- Levou aproximadamente 1 dia e meio para ser finalizado.
+- o design foi baseado no figma feito pelo [Ricardo Schiniegoski](https://www.figma.com/@ricardohs) - [Figma design](https://www.figma.com/community/file/979132880663340794]
+
+## Google LightHouse test result for this app
+
 
 ## Recommended IDE Setup
 
